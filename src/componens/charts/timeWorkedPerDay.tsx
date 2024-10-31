@@ -29,8 +29,6 @@ export const TimeWorkedChart: FC<ChartsProps> = ({ chartData, className }: Chart
                 chartRef.current.destroy();
             }
 
-            console.log(themes.dark.primary)
-
             chartRef.current = new Chart(ctx, {
                 type: 'line',
                 data: formatData(chartData),

@@ -147,14 +147,9 @@ export default function App() {
   }, [data]);
 
   const onSaveData = async (newData: TableData[]) => {
-    console.log('SAVING DATA: ', newData);
-
-
     try {
-      const result = await saveTableData(newData);
-      console.log(result);
+      await saveTableData(newData);
       setData(newData);
-      console.log('DATA SAVED');
     } catch (error) {
       console.log(error);
     }

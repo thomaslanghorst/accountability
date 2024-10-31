@@ -7,7 +7,6 @@ export const saveTableData = async (tableData: TableData[]): Promise<boolean> =>
     try {
         const data = new FormData();
         data.append('tableData', JSON.stringify(tableData));
-        console.log('data string: ', data);
 
         const res = await fetch(url, {
             method: 'POST',
