@@ -1,11 +1,11 @@
-export async function onRequestPost(context) {
+export function onRequestPost(context) {
     try {
   
-      const formdata = await context.request.formData();
+      var formdata = context.request.formData();
   
-      const tableData = formdata.get('tableData');
+      var tableData = formdata.get('tableData');
   
-      await context.env.KV.put('tableData', tableData);
+      context.env.KV.put('tableData', tableData);
   
       return new Response('{"success": true}');
     } catch (error) {
