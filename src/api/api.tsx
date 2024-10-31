@@ -2,11 +2,11 @@ import { TableData } from "../componens/table";
 
 const url = '/tableData';
 
-export const saveTableData = async (data: TableData[]): Promise<boolean> => {
+export const saveTableData = async (tableData: TableData[]): Promise<boolean> => {
 
     try {
         const data = new FormData();
-        data.append('tableData', JSON.stringify(data));
+        data.append('tableData', JSON.stringify(tableData));
 
         const res = await fetch(url, {
             method: 'POST',
