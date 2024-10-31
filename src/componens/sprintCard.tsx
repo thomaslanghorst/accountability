@@ -5,7 +5,7 @@ interface SprintProps {
     goal: string;
 }
 
-export const Sprint: FC<SprintProps> = ({ sprintNr, goal }) => {
+export const SprintCard: FC<SprintProps> = ({ sprintNr, goal }) => {
     return (
         <div className='flex justify-center m-2'>
             <div className="card bg-base-300 w-96 shadow-xl">

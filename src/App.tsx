@@ -4,7 +4,7 @@ import { Table, TableData } from './componens/table';
 import { Stats } from './componens/stats';
 import { WordsPerDayChart } from './componens/charts/wordsPerDay';
 import { TimeWorkedChart } from './componens/charts/timeWorkedPerDay';
-import { Sprint } from './componens/sprintCard';
+import { SprintCard } from './componens/sprintCard';
 
 interface Sprint {
   number: number; 
@@ -153,7 +153,7 @@ export default function App() {
   return (
 
     <div className="container flex flex-col justify-content mx-auto">
-      <Sprint sprintNr={sprint.number} goal={sprint.goal} />
+      <SprintCard sprintNr={sprint.number} goal={sprint.goal} />
 
       <Stats totalExtraWords={totalExtraWords} totalMinsWorked={totalMinsWorked} />
       <div className='flex flex-row h-54'>
