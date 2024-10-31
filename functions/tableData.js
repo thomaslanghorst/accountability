@@ -2,6 +2,8 @@ export function onRequestPost(context) {
     try {
   
       var formdata = context.request.formData();
+      console.log('formdata: ', formdata);
+      console.log('context.env.KV: ', context.env.KV);
   
       var tableData = formdata.get('tableData');
   
