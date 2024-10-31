@@ -5,6 +5,7 @@ import { Stats } from './componens/stats';
 import { WordsPerDayChart } from './componens/charts/wordsPerDay';
 import { TimeWorkedChart } from './componens/charts/timeWorkedPerDay';
 import { SprintCard } from './componens/sprintCard';
+import { saveTableData } from './api/api';
 
 interface Sprint {
   number: number; 
@@ -145,9 +146,18 @@ export default function App() {
     return hw;
   }, [data]);
 
-  const onSaveData = (newData: TableData[]) => {
+  const onSaveData = async (newData: TableData[]) => {
     console.log('SAVING DATA: ', newData);
-    setData(newData);
+
+
+    try {
+      const result = await saveTableData(newData);
+      console.log(result);
+      setData(newData);
+      console.log('DATA SAVED');
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
