@@ -1,14 +1,14 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import './App.css';
 import { Table, TableData } from './componens/table';
 import { Stats } from './componens/stats';
 import { WordsPerDayChart } from './componens/charts/wordsPerDay';
 import { TimeWorkedChart } from './componens/charts/timeWorkedPerDay';
 import { SprintCard } from './componens/sprintCard';
-import { saveTableData } from './api/api';
+import { getTableData, saveTableData } from './api/api';
 
 interface Sprint {
-  number: number; 
+  number: number;
   goal: string;
 }
 
@@ -16,7 +16,7 @@ export default function App() {
 
   const header = ['Date', 'Weekday', 'Minutes Worked', 'Duration', 'Words written', 'Extra Words'];
   const minWordsToWrite = 1000;
-  const sprint: Sprint = {number: 1, goal: 'Write 1000 words a day'};
+  const sprint: Sprint = { number: 1, goal: 'Write 1000 words a day' };
 
   const [data, setData] = useState<TableData[]>([
     {
@@ -106,6 +106,24 @@ export default function App() {
     }
   ])
 
+  const fetchData = useCallback(async () => {
+    try {
+
+      const tableData = await getTableData();
+
+      console.log(tableData);
+      // if (tableData) {
+      //   setData(tableData);
+      // }
+    } catch (error) {
+      console.log('ERROR fetching tableData data: ', error);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
   const totalExtraWords: number = useMemo<number>(() => {
     let total = 0;
 
@@ -134,13 +152,13 @@ export default function App() {
     })
 
     return wpd;
-  }, [data]); 
-  
+  }, [data]);
+
   const hoursWorked: number[] = useMemo<number[]>(() => {
     const hw: number[] = [];
 
     data?.forEach(td => {
-      hw.push(+td.minutesWorked/60);
+      hw.push(+td.minutesWorked / 60);
     })
 
     return hw;
