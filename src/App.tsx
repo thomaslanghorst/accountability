@@ -182,8 +182,8 @@ export default function App() {
 
       <Stats totalExtraWords={totalExtraWords} totalMinsWorked={totalMinsWorked} />
       <div className='flex flex-row h-54'>
-        <TimeWorkedChart className="mr-auto" chartData={hoursWorked} />
-        <WordsPerDayChart className="ml-auto" chartData={wordsPerDay} />
+        <TimeWorkedChart className="ml-auto" chartData={hoursWorked} />
+        <WordsPerDayChart className="mr-auto" chartData={wordsPerDay} />
       </div>
 
       <Table header={header} initialData={data} minWordsToWrite={minWordsToWrite} onSaveData={onSaveData} />
