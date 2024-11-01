@@ -18,93 +18,95 @@ export default function App() {
   const minWordsToWrite = 1000;
   const sprint: Sprint = { number: 1, goal: 'Write 1000 words a day' };
 
-  const [data, setData] = useState<TableData[]>([
-    {
-      date: '28/10/2024',
-      writtenWords: '0',
-      extraWords: '0',
-      minutesWorked: '0'
-    },
-    {
-      date: '29/10/2024',
-      writtenWords: '0',
-      extraWords: '0',
-      minutesWorked: '0'
-    },
-    {
-      date: '30/10/2024',
-      writtenWords: '0',
-      extraWords: '0',
-      minutesWorked: '0'
-    },
-    {
-      date: '31/10/2024',
-      writtenWords: '0',
-      extraWords: '0',
-      minutesWorked: '0'
-    },
-    {
-      date: '1/11/2024',
-      writtenWords: '0',
-      extraWords: '0',
-      minutesWorked: '0'
-    },
-    {
-      date: '2/11/2024',
-      writtenWords: '0',
-      extraWords: '0',
-      minutesWorked: '0'
-    },
-    {
-      date: '3/11/2024',
-      writtenWords: '0',
-      extraWords: '0',
-      minutesWorked: '0'
-    },
-    {
-      date: '4/11/2024',
-      writtenWords: '0',
-      extraWords: '0',
-      minutesWorked: '0'
-    },
-    {
-      date: '5/11/2024',
-      writtenWords: '0',
-      extraWords: '0',
-      minutesWorked: '0'
-    },
-    {
-      date: '6/11/2024',
-      writtenWords: '0',
-      extraWords: '0',
-      minutesWorked: '0'
-    },
-    {
-      date: '7/11/2024',
-      writtenWords: '0',
-      extraWords: '0',
-      minutesWorked: '0'
-    },
-    {
-      date: '8/11/2024',
-      writtenWords: '0',
-      extraWords: '0',
-      minutesWorked: '0'
-    },
-    {
-      date: '9/11/2024',
-      writtenWords: '0',
-      extraWords: '0',
-      minutesWorked: '0'
-    }
-    ,
-    {
-      date: '10/11/2024',
-      writtenWords: '0',
-      extraWords: '0',
-      minutesWorked: '0'
-    }
-  ])
+  const [data, setData] = useState<TableData[]>([]);
+
+  // const [data, setData] = useState<TableData[]>([
+  //   {
+  //     date: '28/10/2024',
+  //     writtenWords: '0',
+  //     extraWords: '0',
+  //     minutesWorked: '0'
+  //   },
+  //   {
+  //     date: '29/10/2024',
+  //     writtenWords: '0',
+  //     extraWords: '0',
+  //     minutesWorked: '0'
+  //   },
+  //   {
+  //     date: '30/10/2024',
+  //     writtenWords: '0',
+  //     extraWords: '0',
+  //     minutesWorked: '0'
+  //   },
+  //   {
+  //     date: '31/10/2024',
+  //     writtenWords: '0',
+  //     extraWords: '0',
+  //     minutesWorked: '0'
+  //   },
+  //   {
+  //     date: '1/11/2024',
+  //     writtenWords: '0',
+  //     extraWords: '0',
+  //     minutesWorked: '0'
+  //   },
+  //   {
+  //     date: '2/11/2024',
+  //     writtenWords: '0',
+  //     extraWords: '0',
+  //     minutesWorked: '0'
+  //   },
+  //   {
+  //     date: '3/11/2024',
+  //     writtenWords: '0',
+  //     extraWords: '0',
+  //     minutesWorked: '0'
+  //   },
+  //   {
+  //     date: '4/11/2024',
+  //     writtenWords: '0',
+  //     extraWords: '0',
+  //     minutesWorked: '0'
+  //   },
+  //   {
+  //     date: '5/11/2024',
+  //     writtenWords: '0',
+  //     extraWords: '0',
+  //     minutesWorked: '0'
+  //   },
+  //   {
+  //     date: '6/11/2024',
+  //     writtenWords: '0',
+  //     extraWords: '0',
+  //     minutesWorked: '0'
+  //   },
+  //   {
+  //     date: '7/11/2024',
+  //     writtenWords: '0',
+  //     extraWords: '0',
+  //     minutesWorked: '0'
+  //   },
+  //   {
+  //     date: '8/11/2024',
+  //     writtenWords: '0',
+  //     extraWords: '0',
+  //     minutesWorked: '0'
+  //   },
+  //   {
+  //     date: '9/11/2024',
+  //     writtenWords: '0',
+  //     extraWords: '0',
+  //     minutesWorked: '0'
+  //   }
+  //   ,
+  //   {
+  //     date: '10/11/2024',
+  //     writtenWords: '0',
+  //     extraWords: '0',
+  //     minutesWorked: '0'
+  //   }
+  // ])
 
   const fetchData = useCallback(async () => {
     try {
@@ -112,9 +114,9 @@ export default function App() {
       const tableData = await getTableData();
 
       console.log(tableData);
-      // if (tableData) {
-      //   setData(tableData);
-      // }
+      if (tableData) {
+        setData(tableData);
+      }
     } catch (error) {
       console.log('ERROR fetching tableData data: ', error);
     }
