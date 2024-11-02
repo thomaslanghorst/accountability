@@ -30,7 +30,7 @@ export const Table: FC<TableProps> = ({ header, initialData, minWordsToWrite }) 
 
             if (identifier === 'writtenWords') {
                 // update extraWords
-                newData[rowIdx].extraWords = `${(+(data[rowIdx].writtenWords))-minWordsToWrite}`
+                newData[rowIdx].extraWords = `${(+(data[rowIdx].writtenWords)) - minWordsToWrite}`
             }
 
             setData([...newData])
@@ -38,46 +38,44 @@ export const Table: FC<TableProps> = ({ header, initialData, minWordsToWrite }) 
     }
 
     return (
-        <div className="overflow-x-auto">
-            <table className="table table-xs">
-                {/* header */}
-                <thead>
-                    <tr>
-                        {header.map((value, index) => (
-                            <th key={`header-${index}`}>{value}</th>
-                        ))}
+        <table className="table table-xs">
+            {/* header */}
+            <thead>
+                <tr>
+                    {header.map((value, index) => (
+                        <th key={`header-${index}`}>{value}</th>
+                    ))}
+                </tr>
+            </thead>
+            <tbody>
+                {data && data.map((row, rowIdx) => (
+                    <tr key={`row-${rowIdx}`}>
+                        <td>{moment(row.date, 'DD/MM/YYYY').format('DD.MM.YYYY')}</td>
+                        <td>{moment(row.date, 'DD/MM/YYYY').format('dddd')}</td>
+                        <td>
+                            <input
+                                type="number" // TODO: use correct type
+                                placeholder="Type here"
+                                className="input input-bordered input-sm w-full max-w-xs"
+                                value={row.minutesWorked}
+                                onChange={(e) => onChange(rowIdx, 'minutesWorked', e.currentTarget.value)}
+                            />
+                        </td>
+                        <td>{durationString(row.minutesWorked)}</td>
+                        <td>
+                            <input
+                                type="text" // TODO: use correct type
+                                placeholder="Type here"
+                                className="input input-bordered input-sm w-full max-w-xs"
+                                value={row.writtenWords}
+                                onChange={(e) => onChange(rowIdx, 'writtenWords', e.currentTarget.value)}
+                            />
+                        </td>
+                        <td className={`${+row.extraWords >= 0 ? 'text-green-500' : 'text-red-500'}`}>{row.extraWords}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    {data && data.map((row, rowIdx) => (
-                        <tr key={`row-${rowIdx}`}>
-                            <td>{moment(row.date, 'DD/MM/YYYY').format('DD.MM.YYYY')}</td>
-                            <td>{moment(row.date, 'DD/MM/YYYY').format('dddd')}</td>
-                            <td>
-                                <input
-                                    type="number" // TODO: use correct type
-                                    placeholder="Type here"
-                                    className="input input-bordered input-sm w-full max-w-xs"
-                                    value={row.minutesWorked}
-                                    onChange={(e) => onChange(rowIdx, 'minutesWorked',  e.currentTarget.value)}
-                                />
-                            </td>
-                            <td>{durationString(row.minutesWorked)}</td>
-                            <td>
-                                <input
-                                    type="text" // TODO: use correct type
-                                    placeholder="Type here"
-                                    className="input input-bordered input-sm w-full max-w-xs"
-                                    value={row.writtenWords}
-                                    onChange={(e) => onChange(rowIdx, 'writtenWords', e.currentTarget.value)}
-                                />
-                            </td>
-                            <td className={`${+row.extraWords >= 0 ? 'text-green-500' : 'text-red-500'}`}>{row.extraWords}</td>
-                        </tr>
-                    )
-                    )}
-                </tbody>
-            </table>
-        </div>
+                )
+                )}
+            </tbody>
+        </table>
     )
 }
