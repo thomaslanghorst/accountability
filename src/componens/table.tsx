@@ -13,10 +13,9 @@ interface TableProps {
     header: string[];
     initialData?: TableData[];
     minWordsToWrite: number;
-    onSaveData(data: TableData[]): void;
 }
 
-export const Table: FC<TableProps> = ({ header, initialData, minWordsToWrite, onSaveData }) => {
+export const Table: FC<TableProps> = ({ header, initialData, minWordsToWrite }) => {
 
     const [data, setData] = useState<TableData[] | undefined>(initialData);
 
@@ -61,7 +60,6 @@ export const Table: FC<TableProps> = ({ header, initialData, minWordsToWrite, on
                                     className="input input-bordered input-sm w-full max-w-xs"
                                     value={row.minutesWorked}
                                     onChange={(e) => onChange(rowIdx, 'minutesWorked',  e.currentTarget.value)}
-                                    onBlur={() => onSaveData(data)}
                                 />
                             </td>
                             <td>{durationString(row.minutesWorked)}</td>
@@ -72,7 +70,6 @@ export const Table: FC<TableProps> = ({ header, initialData, minWordsToWrite, on
                                     className="input input-bordered input-sm w-full max-w-xs"
                                     value={row.writtenWords}
                                     onChange={(e) => onChange(rowIdx, 'writtenWords', e.currentTarget.value)}
-                                    onBlur={() => onSaveData(data)}
                                 />
                             </td>
                             <td className={`${+row.extraWords >= 0 ? 'text-green-500' : 'text-red-500'}`}>{row.extraWords}</td>

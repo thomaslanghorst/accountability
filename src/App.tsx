@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import './App.css';
 import { Table, TableData } from './componens/table';
 import { Stats } from './componens/stats';
@@ -18,8 +18,10 @@ export default function App() {
   const minWordsToWrite = 1000;
   const sprint: Sprint = { number: 1, goal: 'Write 1000 words a day' };
 
-  const [data, setData] = useState<TableData[]>([]);
+  const savedModalRef = useRef<HTMLDialogElement>(null);
+  const [modalMsg, setModalMsg] = useState<string>("");
 
+  const [data, setData] = useState<TableData[]>([]);
   // const [data, setData] = useState<TableData[]>([
   //   {
   //     date: '28/10/2024',
@@ -166,12 +168,15 @@ export default function App() {
     return hw;
   }, [data]);
 
-  const onSaveData = async (newData: TableData[]) => {
+  const save = async () => {
     try {
-      await saveTableData(newData);
-      setData(newData);
+      await saveTableData(data);
+      setModalMsg("The data has been saved!");
+      savedModalRef.current?.showModal();
     } catch (error) {
       console.log(error);
+      setModalMsg(`The data has not been saved! Error: ${error}`);
+      savedModalRef.current?.showModal();
     }
   }
 
@@ -185,8 +190,21 @@ export default function App() {
         <TimeWorkedChart className="ml-auto" chartData={hoursWorked} />
         <WordsPerDayChart className="mr-auto" chartData={wordsPerDay} />
       </div>
-
-      <Table header={header} initialData={data} minWordsToWrite={minWordsToWrite} onSaveData={onSaveData} />
+      <div className='w-full flex justify-end mb-4'>
+        <button className="btn w-32 btn-outline btn-primary" onClick={save}>Save</button>
+      </div>
+      <Table header={header} initialData={data} minWordsToWrite={minWordsToWrite}  />
+      <dialog ref={savedModalRef} className="modal">
+        <div className="modal-box">
+          <h3 className="text-lg font-bold">Save</h3>
+          <p className="py-4">{modalMsg}</p>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn btn-primary">OK</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   )
 }
